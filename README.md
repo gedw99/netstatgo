@@ -41,3 +41,20 @@ TCP     127.0.0.1:58587           127.0.0.1:58586           ESTABLISHED 11252   
 TCP     127.0.0.1:58588           127.0.0.1:58589           ESTABLISHED 11252     /vmware.exe
 TCP     127.0.0.1:58589           127.0.0.1:58588           ESTABLISHED 11252     /vmware.exe
 ```
+
+## todo
+
+1. mod upgrade to V4
+
+2. add filter by PORT or PROCESS 
+- go run main.go --port 8080
+- go run main.go --process chrome
+
+3. add kill by PORT or PROCESS OR PID
+- go run main.go kill --port 8080
+- go run main.go kill --process chrome
+- go run main.go kill --pid 123475
+
+4. add to caddy, so we have an easy way to manage things on any machine.
+
+5. Basic HTMX GUI. The LCI is fine, but Web is useful and easy with HTMX.
