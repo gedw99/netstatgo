@@ -1,6 +1,6 @@
 module github.com/JohnHammond/netstatgo
 
-go 1.18
+go 1.24.0
 
 require github.com/shirou/gopsutil/v4 v4.25.1
 
