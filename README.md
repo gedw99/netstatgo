@@ -44,9 +44,9 @@ TCP     127.0.0.1:58589           127.0.0.1:58588           ESTABLISHED 11252   
 
 ## todo
 
-1. mod upgrade to V4
+1. DONE: mod upgrade to V4
 
-2. add filter by PORT or PROCESS 
+2. DONE: add filter by PORT or PROCESS 
 - go run main.go --port 8080
 - go run main.go --process chrome
 
