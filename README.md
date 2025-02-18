@@ -10,9 +10,14 @@ To receive all possible information, run as an administrator.
 
 ## Sample Output
 
+works on all OS and ARCH...
+
 ### Windows
 
 ```sh
+netstatgo_bin_windows_amd64.exe
+netstatgo_bin_windows_arm64.exe
+
 Proto   Local Address             Foreign Address           State      PID/Name
 TCP     0.0.0.0:135               0.0.0.0:0                 LISTEN     1948      /svchost.exe
 TCP     0.0.0.0:445               0.0.0.0:0                 LISTEN     4         /System
@@ -48,6 +53,8 @@ TCP     127.0.0.1:58589           127.0.0.1:58588           ESTABLISHED 11252   
 
 ```sh
 netstatgo_bin_darwin_arm64
+netstatgo_bin_darwin_amd64
+
 Proto   Local Address             Foreign Address           State      PID/Name  
 TCP     *:49923                   :0                        LISTEN     451       /rapportd
 TCP     *:49923                   :0                        LISTEN     451       /rapportd
@@ -69,7 +76,7 @@ TCP     192.168.1.2:49940         76.223.92.165:443         ESTABLISHED 68098   
 TCP     192.168.1.2:54565         52.182.143.214:443        ESTABLISHED 73422     /Code Helper (Plugin)
 ``` 
 
-## Todo
+## To do
 
 1. DONE: mod upgrade to V4
 
