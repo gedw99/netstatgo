@@ -10,7 +10,9 @@ To receive all possible information, run as an administrator.
 
 ## Sample Output
 
-```
+### Windows
+
+```sh
 Proto   Local Address             Foreign Address           State      PID/Name
 TCP     0.0.0.0:135               0.0.0.0:0                 LISTEN     1948      /svchost.exe
 TCP     0.0.0.0:445               0.0.0.0:0                 LISTEN     4         /System
@@ -42,7 +44,32 @@ TCP     127.0.0.1:58588           127.0.0.1:58589           ESTABLISHED 11252   
 TCP     127.0.0.1:58589           127.0.0.1:58588           ESTABLISHED 11252     /vmware.exe
 ```
 
-## todo
+### Apple MAC
+
+```sh
+netstatgo_bin_darwin_arm64
+Proto   Local Address             Foreign Address           State      PID/Name  
+TCP     *:49923                   :0                        LISTEN     451       /rapportd
+TCP     *:49923                   :0                        LISTEN     451       /rapportd
+TCP6    fe80:1a::9e9d:2e87:a65:f375:1024 fe80:1a::76cf:7b93:a347:4e2a:1024 ESTABLISHED 465       /identityservicesd
+TCP6    fe80:1a::9e9d:2e87:a65:f375:1026 fe80:1a::76cf:7b93:a347:4e2a:1025 ESTABLISHED 465       /identityservicesd
+TCP6    fe80:1a::9e9d:2e87:a65:f375:1026 fe80:1a::76cf:7b93:a347:4e2a:1025 ESTABLISHED 465       /identityservicesd
+UDP     *:63610                   :0                                   465       /identityservicesd
+UDP     *:64418                   :0                                   465       /identityservicesd
+UDP     *:54144                   :0                                   488       /sharingd
+TCP     *:7000                    :0                        LISTEN     512       /ControlCenter
+TCP     *:7000                    :0                        LISTEN     512       /ControlCenter
+TCP     *:5000                    :0                        LISTEN     512       /ControlCenter
+TCP     *:5000                    :0                        LISTEN     512       /ControlCenter
+TCP     127.0.0.1:8080            :0                        LISTEN     23501     /xtemplate_bin_darwin_arm64
+TCP     192.168.1.2:49854         104.46.162.225:443        ESTABLISHED 28047     /Code Helper (Plugin)
+TCP     192.168.1.2:50555         34.107.243.93:443         ESTABLISHED 36010     /firefox
+TCP     192.168.1.2:50095         13.248.212.111:443        ESTABLISHED 68098     /Signal Helper (Renderer)
+TCP     192.168.1.2:49940         76.223.92.165:443         ESTABLISHED 68098     /Signal Helper (Renderer)
+TCP     192.168.1.2:54565         52.182.143.214:443        ESTABLISHED 73422     /Code Helper (Plugin)
+``` 
+
+## Todo
 
 1. DONE: mod upgrade to V4
 
