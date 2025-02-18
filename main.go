@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"os"
 
 	"github.com/shirou/gopsutil/v4/net"
 	"github.com/shirou/gopsutil/v4/process"
@@ -31,12 +32,24 @@ func protocolToString(connType uint32, ip string) string {
 	}
 }
 
-func main() {
-	// Define command-line flags
-	portFlag := flag.Int("port", 0, "filter by port number")
-	processFlag := flag.String("process", "", "filter by process name")
-	flag.Parse()
+func killProcessByName(name string) error {
+	processes, err := process.Processes()
+	if err != nil {
+		return err
+	}
+	for _, p := range processes {
+		n, err := p.Name()
+		if err != nil {
+			return err
+		}
+		if n == name {
+			return p.Kill()
+		}
+	}
+	return fmt.Errorf("process not found")
+}
 
+func listConnections(portFilter int, processFilter string) {
 	// Get network connections
 	conns, err := net.Connections("all")
 	if err != nil {
@@ -52,7 +65,7 @@ func main() {
 		}
 
 		// Check if connection matches port filter
-		if *portFlag > 0 && int(conn.Laddr.Port) != *portFlag {
+		if portFilter > 0 && int(conn.Laddr.Port) != portFilter {
 			continue
 		}
 
@@ -69,7 +82,7 @@ func main() {
 		}
 
 		// Check if connection matches process filter
-		if *processFlag != "" && !strings.Contains(strings.ToLower(procName), strings.ToLower(*processFlag)) {
+		if processFilter != "" && !strings.Contains(strings.ToLower(procName), strings.ToLower(processFilter)) {
 			continue
 		}
 
@@ -80,5 +93,43 @@ func main() {
 		localAddr := conn.Laddr.IP + ":" + strconv.Itoa(int(conn.Laddr.Port))
 		remoteAddr := conn.Raddr.IP + ":" + strconv.Itoa(int(conn.Raddr.Port))
 		fmt.Printf("%-7s %-25s %-25s %-10s %-10d/%s\n", protocol, localAddr, remoteAddr, conn.Status, conn.Pid, procName)
+	}
+}
+func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("Expected a subcommand (e.g: 'list')")
+		os.Exit(1)
+	}
+
+	switch os.Args[1] {
+	case "list":
+		listCmd := flag.NewFlagSet("list", flag.ExitOnError)
+		portFlag := listCmd.Int("port", 0, "filter by port number")
+		processFlag := listCmd.String("process", "", "filter by process name")
+
+		listCmd.Parse(os.Args[2:])
+
+		listConnections(*portFlag, *processFlag)
+
+	case "kill":
+		killCmd := flag.NewFlagSet("kill", flag.ExitOnError)
+		processName := killCmd.String("process", "", "process to kill")
+
+		killCmd.Parse(os.Args[2:])
+
+		if *processName == "" {
+			fmt.Println("You must provide the --process flag")
+			os.Exit(1)
+		}
+
+		if err := killProcessByName(*processName); err != nil {
+			fmt.Printf("Error killing process: %v\n", err)
+			os.Exit(1)
+		}
+		fmt.Printf("Successfully killed process: %s\n", *processName)
+
+	default:
+		fmt.Println("Unknown subcommand")
+		os.Exit(1)
 	}
 }
