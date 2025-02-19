@@ -80,15 +80,39 @@ TCP     192.168.1.2:54565         52.182.143.214:443        ESTABLISHED 73422   
 
 1. DONE: mod upgrade to V4
 
-2. DONE: add filter by PORT or PROCESS 
+2. @Abdulrahman-02 wants upgrade the CLI to use Bubble Tea which is cool
+
+3. DONE: add filter by PORT or PROCESS 
 - go run main.go --port 8080
 - go run main.go --process chrome
 
-3. add kill by PORT or PROCESS OR PID
+4. Add kill by PORT or PROCESS OR PID
 - go run main.go kill --port 8080
 - go run main.go kill --process chrome
 - go run main.go kill --pid 123475
 
-4. add to caddy, so we have an easy way to manage things on any machine.
 
-5. Basic HTMX GUI. The LCI is fine, but Web is useful and easy with HTMX.
+5. Add as caddy module, so we have an easy way to manage things on any machine.
+
+- example code: https://github.com/infogulch/xtemplate-caddy/blob/master/module.go
+
+- it just wraps the xtemplate package that does not have caddy. This is the way.
+
+6. Basic Web based HTMX GUI. Use the extra stuff below.
+
+- See https://github.com/abhie-lp/basic-realtime-sytem-monitor for Super simple HTMX Web example.
+
+7. Upgrade to be able to monitor many servers using https://github.com/henrygd/beszel  
+
+- beszel has a crazy complex Web GUI. We can just wrap beszel with HTMX GUI based on DataStar
+
+- https://github.com/starfederation/datastar is real time using SSE and way way easier.
+
+- It uses SSH to reach each machine and its agent, which means every machine is reachable without anything on it.
+
+- It uses Pocketbase ( in the Hub ), which can output to SSE, and so DataStar can be updated off the SSE stream.
+
+- We can then add Benthos so that we can react to any changes on a Machine and then call back into beszel to do the same kill features we need. See https://github.com/henrygd/beszel/issues/599
+
+
+
