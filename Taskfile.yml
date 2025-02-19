@@ -1,0 +1,26 @@
+version: '3'
+
+tasks:
+  build-mac-intel:
+    platforms: [darwin/amd64]
+    cmds: 
+      - GOOS=darwin GOARCH=amd64 go build -o netstatgo-macos-amd64
+  
+  build-mac-silicon:
+    platforms: [darwin/arm64]
+    cmds:
+      - GOOS=darwin GOARCH=arm64 go build -o netstatgo-macos-arm64
+  
+  build-linux:
+    platforms: [linux]
+    cmds:
+      - GOOS=linux GOARCH=amd64 go build -o netstatgo-linux-amd64
+  
+  build-windows:
+    platforms: [windows]
+    cmds:
+      - GOOS=windows GOARCH=amd64 go build -o netstatgo-windows-amd64.exe
+
+  clean:
+    cmds:
+      - rm -f netstatgo-*
